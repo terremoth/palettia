@@ -13,6 +13,12 @@
       "src": "img/palettia-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "purpose": "maskable",
+      "src": "img/palettia-192x192.masked.png",
+      "sizes": "192x192",
+      "type": "image/png"
     }
   ],
   "name": "Palettia",
