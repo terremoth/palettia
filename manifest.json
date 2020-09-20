@@ -1,7 +1,7 @@
 {
   "background_color": "tomato",
   "description": "Generate color schemes/palettes easily",
-  "display": "fullscreen",
+  "display": "standalone",
   "gcm_user_visible_only": true,
   "icons": [
     {
