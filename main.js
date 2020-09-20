@@ -63,7 +63,6 @@ function copyToClipboardEvent() {
             let text = el.innerText;
             try {
                 navigator.clipboard.writeText(text).then(function() {
-                    console.log('Async: Copying to clipboard was successful!');
                     toastr.options = {
                         "closeButton": false,
                         "debug": false,
@@ -74,7 +73,7 @@ function copyToClipboardEvent() {
                         "onclick": null,
                         "showDuration": "300",
                         "hideDuration": "500",
-                        "timeOut": "1500",
+                        "timeOut": "2000",
                         "extendedTimeOut": "0",
                         "showEasing": "swing",
                         "hideEasing": "linear",
@@ -87,7 +86,7 @@ function copyToClipboardEvent() {
                 }, function(err) {
                     console.error('Async: Could not copy text: ', err);
                 });
-            } catch(e) {
+            } catch (e) {
                 alert('Seu navegador não suporta a API de copiar para a área de transferência! Por favor atualize seu navegador.');
             }
         });
@@ -106,7 +105,6 @@ document.querySelector('#colorPicker').addEventListener('change', function(evt) 
 
     deriveColorsIntoContainer(complementary, '.c2');
     copyToClipboardEvent();
-
 });
 
 let deferredPrompt;
@@ -115,7 +113,7 @@ addBtn.style.display = 'none';
 
 window.addEventListener('beforeinstallprompt', (e) => {
     // Prevent Chrome 67 and earlier from automatically showing the prompt
-    e.preventDefault();
+    //e.preventDefault();
     // Stash the event so it can be triggered later.
     deferredPrompt = e;
     // Update UI to notify the user they can add to home screen
@@ -136,4 +134,9 @@ window.addEventListener('beforeinstallprompt', (e) => {
             deferredPrompt = null;
         });
     });
+});
+
+window.addEventListener('appinstalled', (evt) => {
+    // Log install to analytics
+    console.log('INSTALL: Success');
 });
