@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="pr-br">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -8,7 +8,7 @@
             body {
                 font-family: sans-serif;
             }
-             
+
             .color-scheme {
                 height: 200px;
                 text-align: center;
@@ -23,7 +23,7 @@
                 flex-basis: 10em;
             }
             .color-scheme:hover {
-                box-shadow: 0px 0px 15px 5px tomato;
+                box-shadow: 0 0 15px 5px tomato;
             }
              
             .color-scheme span {
@@ -48,7 +48,8 @@
     <body>
         <h1>Palettia</h1>
         <p>Gerador de Esquema/Paleta de Cores</p>
-        Escolha uma cor como base: <input type="color" id="colorPicker">
+        <label for="colorPicker">Escolha uma cor como base:</label>
+        <input type="color" value="#5FE3B7" id="colorPicker">
         <br>
         <hr>
         <h2>Geradas:</h2>
@@ -61,16 +62,17 @@
             
             // stalker de código você hein, seu cyber-batutinha
 
-            var themer = function(color) {
-                combinations = [];
-                group = color.match(/.{1,2}/g);
-                
-                first  = group[0]+group[1]+group[2];         
-                second = group[0]+group[2]+group[1];
-                third  = group[1]+group[0]+group[2];
-                fourth = group[1]+group[2]+group[0];
-                fifth  = group[2]+group[0]+group[1];
-                sixth  = group[2]+group[1]+group[0];
+            const Themer = function(color) {
+                let combinations = [];
+                let group = color.match(/.{1,2}/g);
+
+                // TODO refactor this to a map function?
+                let first  = group[0]+group[1]+group[2];
+                let second = group[0]+group[2]+group[1];
+                let third  = group[1]+group[0]+group[2];
+                let fourth = group[1]+group[2]+group[0];
+                let fifth  = group[2]+group[0]+group[1];
+                let sixth  = group[2]+group[1]+group[0];
                 
                 combinations.push(first);
                 combinations.push(second);
@@ -84,7 +86,7 @@
             
             function complementaryColor(hexaRgbColor) {
                 
-                color = hexaRgbColor.toString();
+                let color = hexaRgbColor.toString();
 
                 if (typeof hexaRgbColor === 'number') {
                    color = parseInt(hexaRgbColor).toString(16).padStart(6, 0);
@@ -104,7 +106,7 @@
                 
                 color = 0xffffff ^ parseInt(color,16);
                 color = color.toString(16);
-                return '#'+color.padStart(6,0);
+                return '#'+color.padStart(6, '0');
             }
             
             function clearContainers() {
@@ -112,7 +114,7 @@
             }
             
             function deriveColorsIntoContainer(color, container) {
-                derivedColors = themer(color);
+                let derivedColors = Themer(color);
                 
                 derivedColors.map(item => {
                     document.querySelector(container).innerHTML += '<div class="color-scheme" style="background-color:#'+item+'"><span>#'+item.toUpperCase()+'</span></div>';
@@ -122,7 +124,7 @@
             function copyToClipboardEvent() {
                 document.querySelectorAll('.color-scheme').forEach(el => {
                     el.addEventListener('click', function() {
-                        var text = el.innerText;
+                        let text = el.innerText;
                         try {                            
                                 navigator.clipboard.writeText(text).then(function() {
                                 console.log('Async: Copying to clipboard was successful!');
@@ -150,7 +152,7 @@
                               console.error('Async: Could not copy text: ', err);
                             });
                         } catch(e) {
-                            alert('Seu navegador não suporta a API de copiar para a área de transferência! Por favor atualize seu navegador');
+                            alert('Seu navegador não suporta a API de copiar para a área de transferência! Por favor atualize seu navegador.');
                         }
                     });
                 });
@@ -159,26 +161,18 @@
             document.querySelector('#colorPicker').addEventListener('change', function(evt) {
                 clearContainers();
                 
-                colorRaw = evt.target.value;
-                console.log(colorRaw);
-                
-                color = colorRaw.slice(1, colorRaw.length);
+                let colorRaw = evt.target.value;
+                let color = colorRaw.slice(1, colorRaw.length);
                 deriveColorsIntoContainer(color, '.c1');
 
-                complementaryRaw = complementaryColor(colorRaw);
-                console.log(complementaryRaw);
-                
-                complementary = complementaryRaw.slice(1, complementaryRaw.length);
+                let complementaryRaw = complementaryColor(colorRaw);
+                let complementary = complementaryRaw.slice(1, complementaryRaw.length);
                 
                 deriveColorsIntoContainer(complementary, '.c2');
                 copyToClipboardEvent();
                 
             });
-            
          
         </script>
-        
-       
     </body>
-
 </html>
