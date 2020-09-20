@@ -1,3 +1,19 @@
 {
-
+  "background_color": "tomato",
+  "description": "Generate color schemes/palettes easily",
+  "display": "standalone",
+  "gcm_user_visible_only": true,
+  "icons": [
+    {
+      "src": "img/palettia-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "name": "Palettia",
+  "short_name": "Palettia",
+  "start_url": "https://terremoth.github.io/palettia/?utm_source=homescreen&utm_medium=shortcut",
+  "theme_color": "tomato",
+  "scope": "/",
+  "prefer_related_applications": false
 }
