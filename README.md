@@ -1,0 +1,2 @@
+# palettia
+Color Scheme Generator
