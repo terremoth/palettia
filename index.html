@@ -5,52 +5,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="manifest" href="manifest.json">
         <title>Palettia - Gerador de Esquema/Paleta de Cores</title>
-        <style>
-            body {
-                font-family: sans-serif;
-            }
-
-            .color-scheme {
-                height: 200px;
-                text-align: center;
-                margin: 0 0 3px 3px;
-                font-size: 1em;
-                user-select: none;
-                cursor: pointer;
-                border-radius: 5px;
-                transition: box-shadow 0.5s;
-                flex-grow: 1;
-                flex-shrink: 1;
-                flex-basis: 10em;
-            }
-            .color-scheme:hover {
-                box-shadow: 0 0 15px 5px tomato;
-            }
-             
-            .color-scheme span {
-                background-color: white;
-                padding: 3px;
-                border-radius: 5px;
-                float: right;
-                margin: 3px;
-            }
-
-            .container {
-                display: flex;
-                flex-wrap: wrap;
-                align-content: baseline;
-            }
-             
-        </style>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+        <link href="style.css" rel="stylesheet">
     </head>
     <body>
         <h1>Palettia</h1>
         <p>Gerador de Esquema/Paleta de Cores</p>
         <label for="colorPicker">Escolha uma cor como base:</label>
         <input type="color" value="#5FE3B7" id="colorPicker">
+        <button class="add-button">Add to home screen</button>
         <br>
         <hr>
         <h2>Geradas:</h2>
@@ -58,122 +23,6 @@
         <hr>
         <h2>Complementares:</h2>
         <div class="container c2" title="Clique para copiar o código da cor selecionada">aguardando...</div>
-        
-        <script>
-            
-            // stalker de código você hein, seu cyber-batutinha
-
-            const Themer = function(color) {
-                let combinations = [];
-                let group = color.match(/.{1,2}/g);
-
-                // TODO refactor this to a map function?
-                let first  = group[0]+group[1]+group[2];
-                let second = group[0]+group[2]+group[1];
-                let third  = group[1]+group[0]+group[2];
-                let fourth = group[1]+group[2]+group[0];
-                let fifth  = group[2]+group[0]+group[1];
-                let sixth  = group[2]+group[1]+group[0];
-                
-                combinations.push(first);
-                combinations.push(second);
-                combinations.push(third);
-                combinations.push(fourth);
-                combinations.push(fifth);
-                combinations.push(sixth);
-                
-                return [...new Set(combinations)];
-            }
-            
-            function complementaryColor(hexaRgbColor) {
-                
-                let color = hexaRgbColor.toString();
-
-                if (typeof hexaRgbColor === 'number') {
-                   color = parseInt(hexaRgbColor).toString(16).padStart(6, 0);
-                }
-                
-                if (hexaRgbColor.toString().slice(0,1) === '#') {
-                    color = hexaRgbColor.slice(1,hexaRgbColor.length);   
-                }
-                
-                if (color.length !== 3 && color.length !== 6){
-                    throw new Error('Color should be a 3 or 6 digits hexa');
-                }
-                
-                if (color.length === 3) {
-                    color = color.split('').map(i => i.repeat(2)).join('');
-                }
-                
-                color = 0xffffff ^ parseInt(color,16);
-                color = color.toString(16);
-                return '#'+color.padStart(6, '0');
-            }
-            
-            function clearContainers() {
-                document.querySelectorAll('.container').forEach(item => item.innerHTML = '');
-            }
-            
-            function deriveColorsIntoContainer(color, container) {
-                let derivedColors = Themer(color);
-                
-                derivedColors.map(item => {
-                    document.querySelector(container).innerHTML += '<div class="color-scheme" style="background-color:#'+item+'"><span>#'+item.toUpperCase()+'</span></div>';
-                });
-            }
-            
-            function copyToClipboardEvent() {
-                document.querySelectorAll('.color-scheme').forEach(el => {
-                    el.addEventListener('click', function() {
-                        let text = el.innerText;
-                        try {                            
-                                navigator.clipboard.writeText(text).then(function() {
-                                console.log('Async: Copying to clipboard was successful!');
-                                toastr.options = {
-                                    "closeButton": false,
-                                    "debug": false,
-                                    "newestOnTop": false,
-                                    "progressBar": false,
-                                    "positionClass": "toast-top-center",
-                                    "preventDuplicates": false,
-                                    "onclick": null,
-                                    "showDuration": "300",
-                                    "hideDuration": "500",
-                                    "timeOut": "1500",
-                                    "extendedTimeOut": "0",
-                                    "showEasing": "swing",
-                                    "hideEasing": "linear",
-                                    "showMethod": "fadeIn",
-                                    "hideMethod": "fadeOut"
-                                }
-                                
-                                toastr["success"]("Código da cor copiado com sucesso!");
-                              
-                            }, function(err) {
-                              console.error('Async: Could not copy text: ', err);
-                            });
-                        } catch(e) {
-                            alert('Seu navegador não suporta a API de copiar para a área de transferência! Por favor atualize seu navegador.');
-                        }
-                    });
-                });
-            }
-            
-            document.querySelector('#colorPicker').addEventListener('change', function(evt) {
-                clearContainers();
-                
-                let colorRaw = evt.target.value;
-                let color = colorRaw.slice(1, colorRaw.length);
-                deriveColorsIntoContainer(color, '.c1');
-
-                let complementaryRaw = complementaryColor(colorRaw);
-                let complementary = complementaryRaw.slice(1, complementaryRaw.length);
-                
-                deriveColorsIntoContainer(complementary, '.c2');
-                copyToClipboardEvent();
-                
-            });
-         
-        </script>
+        <script src="main.js"></script>
     </body>
 </html>

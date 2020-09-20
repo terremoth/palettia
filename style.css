@@ -1,0 +1,40 @@
+body {
+    font-family: sans-serif;
+}
+
+.color-scheme {
+    height: 200px;
+    text-align: center;
+    margin: 0 0 3px 3px;
+    font-size: 1em;
+    user-select: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: box-shadow 0.5s;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 10em;
+}
+.color-scheme:hover {
+    box-shadow: 0 0 15px 5px tomato;
+}
+
+.color-scheme span {
+    background-color: white;
+    padding: 3px;
+    border-radius: 5px;
+    float: right;
+    margin: 3px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: baseline;
+}
+
+.add-button {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+}
