@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Gerador de Esquema/Paleta de Cores</title>
+        <title>Palettia - Gerador de Esquema/Paleta de Cores</title>
         <style>
             body {
                 font-family: sans-serif;
@@ -12,15 +12,15 @@
             .color-scheme {
                 height: 200px;
                 text-align: center;
-                margin-left: 2px;
-                width: 200px;
-                display: inline-block;
+                margin: 0 0 3px 3px;
                 font-size: 1em;
                 user-select: none;
                 cursor: pointer;
                 border-radius: 5px;
                 transition: box-shadow 0.5s;
-                transition-timing-function: ease-out;
+                flex-grow: 1;
+                flex-shrink: 1;
+                flex-basis: 10em;
             }
             .color-scheme:hover {
                 box-shadow: 0px 0px 15px 5px tomato;
@@ -33,6 +33,12 @@
                 float: right;
                 margin: 3px;
             }
+
+            .container {
+                display: flex;
+                flex-wrap: wrap;
+                align-content: baseline;
+            }
              
         </style>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -40,8 +46,9 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
     </head>
     <body>
-        <h1>Gerador de Esquema/Paleta de Cores</h1>
-        Escolha: <input type="color" id="colorPicker">
+        <h1>Palettia</h1>
+        <p>Gerador de Esquema/Paleta de Cores</p>
+        Escolha uma cor como base: <input type="color" id="colorPicker">
         <br>
         <hr>
         <h2>Geradas:</h2>
