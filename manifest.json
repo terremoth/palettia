@@ -1,8 +1,7 @@
 {
   "background_color": "tomato",
   "description": "Generate color schemes/palettes easily",
-  "display": "standalone",
-  "gcm_user_visible_only": true,
+  "display": "fullscreen",
   "icons": [
     {
       "src": "img/palettia-192x192.png",
