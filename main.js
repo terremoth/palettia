@@ -92,8 +92,7 @@ function copyToClipboardEvent() {
         });
     });
 }
-
-document.querySelector('#colorPicker').addEventListener('change', function(evt) {
+function createColorScheme(evt) {
     clearContainers();
 
     let colorRaw = evt.target.value;
@@ -105,7 +104,16 @@ document.querySelector('#colorPicker').addEventListener('change', function(evt) 
 
     deriveColorsIntoContainer(complementary, '.c2');
     copyToClipboardEvent();
+}
+let colorPicker = document.querySelector('#colorPicker');
+colorPicker.addEventListener('input', function(evt) {
+    createColorScheme(evt)
 });
+
+colorPicker.addEventListener('blur', function(evt) {
+    createColorScheme(evt)
+});
+
 
 let deferredPrompt;
 const addBtn = document.querySelector('.add-button');

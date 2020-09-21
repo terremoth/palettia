@@ -5,6 +5,10 @@ body {
 h1, h2 {
     font-family: "Open Sans", sans-serif;
 }
+h1 {
+    color: tomato;
+    text-shadow: 0 0 1px black;
+}
 
 .color-scheme {
     height: 200px;
