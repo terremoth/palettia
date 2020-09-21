@@ -2,9 +2,10 @@ self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open('v1').then((cache) => {
             return cache.addAll([
-                'index.html',
-                'main.js',
-                'style.css',
+                '/index.html',
+                '/main.js',
+                '/style.css',
+                '/img/favicon.ico'
             ]);
         })
     );
