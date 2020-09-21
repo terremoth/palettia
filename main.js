@@ -115,7 +115,7 @@ colorPicker.addEventListener('blur', function(evt) {
 });
 
 
-let deferredPrompt;
+var deferredPrompt;
 const addBtn = document.querySelector('.add-button');
 // addBtn.style.display = 'none';
 
@@ -124,6 +124,8 @@ window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     // Stash the event so it can be triggered later.
     deferredPrompt = e;
+    console.log("deferredPrompt:");
+    console.log(deferredPrompt);
 });
     // Update UI to notify the user they can add to home screen
 
@@ -150,7 +152,7 @@ window.addEventListener('appinstalled', (evt) => {
 });
 
 if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
+    // window.addEventListener('load', function() {
         navigator.serviceWorker.register('sw.js').then(function(registration) {
             // Registration was successful
             console.log('ServiceWorker registration successful with scope: ', registration.scope);
@@ -158,5 +160,5 @@ if ('serviceWorker' in navigator) {
             // registration failed :(
             console.log('ServiceWorker registration failed: ', err);
         });
-    });
+    // });
 }
